@@ -1,5 +1,6 @@
 import express from 'express';
-// import './dbSetup.js';
+import './dbSetup.js';
+import './dbAddUsers.js';
 
 const app = express();
 app.listen(3000, ()=>{
