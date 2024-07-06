@@ -1,0 +1,30 @@
+{
+  "name": "fci",
+  "version": "1.0.0",
+  "description": "Force Concept Inventory api",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/humbertocarmona/fci.git"
+  },
+  "keywords": [
+    "FCI",
+    "force",
+    "concept"
+  ],
+  "type": "module",
+  "author": "Humberto Carmona",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/humbertocarmona/fci/issues"
+  },
+  "homepage": "https://github.com/humbertocarmona/fci#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  }
+}
