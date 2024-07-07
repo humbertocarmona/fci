@@ -9,9 +9,9 @@ import {
   updateUserProgress,
   getUserByUsername,
   getUserProgress,
+  saveUserResponse,
 } from "./dbAddUsers.js";
 import { checkAccess } from "./middleware.js";
-
 import './dbSetup.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -84,6 +84,20 @@ app.get('/question:questionNumber', checkAccess, (req, res) => {
     res.sendFile(path.join(__dirname, `..`, `public`, `question${questionNumber}`, `index.html`));
 });
 
+// Handle form submission and save user response
+app.post('/submitAnswer', (req, res) => {
+    const { questionNumber, answer } = req.body;
+    const username = req.session.username; // Get username from session
+    try {
+        saveUserResponse(username, questionNumber, answer);
+        updateUserProgress(username, questionNumber + 1);
+        res.send('Answer submitted successfully');
+    } catch (err) {
+        console.error('Error submitting answer:', err);
+        res.status(500).send('Error submitting answer');
+    }
+});
+
 // Endpoint to update user progress
 app.post('/updateProgress', (req, res) => {
     const { username, progress } = req.body;
@@ -95,6 +109,7 @@ app.post('/updateProgress', (req, res) => {
         res.status(500).send('Error updating progress');
     }
 });
+
 
 
 app.listen(PORT, () => {

@@ -2,7 +2,7 @@ import Database from 'better-sqlite3';
 const db = new Database('fci.db')
 db.pragma('journal_mode = WAL');
 
-const query = `
+const createUsersTable = `
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY,
         name STRING NOT NULL,
@@ -12,5 +12,17 @@ const query = `
     )
 `;
 
-db.exec(query);
+const createResponsesTable = `
+    CREATE TABLE IF NOT EXISTS responses (
+        id INTEGER PRIMARY KEY,
+        username STRING NOT NULL,
+        question_number INTEGER NOT NULL,
+        response STRING NOT NULL,
+        FOREIGN KEY (username) REFERENCES users(username)
+    )
+`;
+
+db.exec(createUsersTable);
+db.exec(createResponsesTable);
+
 

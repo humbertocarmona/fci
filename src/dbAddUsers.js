@@ -21,9 +21,15 @@ export function getUserByUsername(username) {
   return stmt.get(username);
 }
 
-
 export function getUserProgress(username) {
   const stmt = db.prepare("SELECT progress FROM users WHERE username = ?");
   const user = stmt.get(username);
   return user ? user.progress : null;
+}
+
+export function saveUserResponse(username, questionNumber, response) {
+  const stmt = db.prepare(
+    "INSERT INTO responses (username, question_number, response) VALUES (?, ?, ?)"
+  );
+  stmt.run(username, questionNumber, response);
 }
