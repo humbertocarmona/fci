@@ -6,7 +6,9 @@ const query = `
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY,
         name STRING NOT NULL,
-        username STRING NOT NULL UNIQUE 
+        username STRING NOT NULL UNIQUE,
+        password STRING NOT NULL,
+        progress INTEGER NOT NULL DEFAULT 1
     )
 `;
 
