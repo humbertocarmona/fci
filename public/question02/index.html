@@ -11,7 +11,7 @@
         <!-- Canvas is created by sketch.js script -->
     </main>
     <div class="instructions">
-        <p>Esta é a questão 1</p>
+        <p>Esta é a questão 2</p>
         <p>Escolha a resposta correta:</p>
     </div>
     <form id="questionForm">
@@ -39,12 +39,12 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ questionNumber: 1, answer }),
+                body: JSON.stringify({ questionNumber: 2, answer }),
             })
             .then(response => response.text())
             .then(data => {
                 alert(data);
-                window.location.href = '/question02';
+                window.location.href = '/question01';
             })
             .catch(error => console.error('Error:', error));
         }

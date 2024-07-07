@@ -33,3 +33,10 @@ export function saveUserResponse(username, questionNumber, response) {
   );
   stmt.run(username, questionNumber, response);
 }
+
+export function checkExistingResponse(username, questionNumber) {
+  const stmt = db.prepare(
+    "SELECT * FROM responses WHERE username = ? AND question_number = ?"
+  );
+  return stmt.get(username, questionNumber);
+}

@@ -18,7 +18,9 @@ const createResponsesTable = `
         username STRING NOT NULL,
         question_number INTEGER NOT NULL,
         response STRING NOT NULL,
-        FOREIGN KEY (username) REFERENCES users(username)
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (username) REFERENCES users(username),
+        UNIQUE (username, question_number)
     )
 `;
 

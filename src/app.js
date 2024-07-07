@@ -10,9 +10,11 @@ import {
   getUserByUsername,
   getUserProgress,
   saveUserResponse,
+  checkExistingResponse
 } from "./dbAddUsers.js";
 import { checkAccess } from "./middleware.js";
 import './dbSetup.js';
+// addUser("Humberto","beto","123")
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -84,14 +86,35 @@ app.get('/question:questionNumber', checkAccess, (req, res) => {
     res.sendFile(path.join(__dirname, `..`, `public`, `question${questionNumber}`, `index.html`));
 });
 
+// // Handle form submission and save user response
+// app.post('/submitAnswer', (req, res) => {
+//     const { questionNumber, answer } = req.body;
+//     const username = req.session.username; // Get username from session
+//     try {
+//         saveUserResponse(username, questionNumber, answer);
+//         updateUserProgress(username, questionNumber + 1);
+//         res.send('Answer submitted successfully');
+//     } catch (err) {
+//         console.error('Error submitting answer:', err);
+//         res.status(500).send('Error submitting answer');
+//     }
+// });
+
 // Handle form submission and save user response
 app.post('/submitAnswer', (req, res) => {
     const { questionNumber, answer } = req.body;
     const username = req.session.username; // Get username from session
+
     try {
-        saveUserResponse(username, questionNumber, answer);
-        updateUserProgress(username, questionNumber + 1);
-        res.send('Answer submitted successfully');
+        const existingResponse = checkExistingResponse(username, questionNumber);
+
+        if (existingResponse) {
+            res.status(400).send('You have already answered this question.');
+        } else {
+            saveUserResponse(username, questionNumber, answer);
+            updateUserProgress(username, questionNumber + 1);
+            res.send('Answer submitted successfully');
+        }
     } catch (err) {
         console.error('Error submitting answer:', err);
         res.status(500).send('Error submitting answer');
