@@ -19,29 +19,34 @@ function setup() {
   balls = [ball1, ball2];
 
   // Criando o botão ITEM A
-  itemAButton = createButton('ITEM A: Ambas as bolas atingem o chão aproximadamente à mesma distância horizontal da base da mesa');
-  itemAButton.position(width / 2 - itemAButton.size().width / 2, height + 20);
+  itemAButton = createButton("Opção A");
+  itemAButton.position(width + 70, height / 2 - 60);
   itemAButton.mousePressed(applyEqualGravity);
 
   // Criando o botão ITEM B
-  itemBButton = createButton('ITEM B: Bola B atinge o chão aproximadamente à metade da distância horizontal da bola A');
-  itemBButton.position(width / 2 - itemBButton.size().width / 2, height + 50);
+  itemBButton = createButton("Opção B");
+  itemBButton.position(width + 70, height / 2 - 30);
   itemBButton.mousePressed(applyHalfDistanceB);
 
   // Criando o botão ITEM C
-  itemCButton = createButton('ITEM C: Bola A atinge o chão a cerca da metade da distância horizontal da bola B');
-  itemCButton.position(width / 2 - itemCButton.size().width / 2, height + 80);
+  itemCButton = createButton("Opção C");
+  itemCButton.position(width + 70, height / 2);
   itemCButton.mousePressed(applyHalfDistanceA);
 
   // Criando o botão ITEM D
-  itemDButton = createButton('ITEM D: Bola B atinge o chão consideravelmente mais perto da base da mesa do que a bola A');
-  itemDButton.position(width / 2 - itemDButton.size().width / 2, height + 110);
+  itemDButton = createButton("Opção D");
+  itemDButton.position(width + 70, height / 2 + 30);
   itemDButton.mousePressed(applyShorterDistanceB);
 
   // Criando o botão ITEM E
-  itemEButton = createButton('ITEM E: Bola A atinge o chão consideravelmente mais perto da base da mesa do que a bola B');
-  itemEButton.position(width / 2 - itemEButton.size().width / 2, height + 140);
+  itemEButton = createButton("Opção E");
+  itemEButton.position(width + 70, height / 2 + 60);
   itemEButton.mousePressed(applyShorterDistanceA);
+
+  startButtonR = createButton("Resetar");
+  startButtonR.position(width + 70, height / 2 + 90);
+  startButtonR.mousePressed(restartSimulation);
+  startButtonR.style("text-align", "left");
 }
 
 function draw() {
@@ -200,7 +205,7 @@ function restartSimulation() {
   balls = [ball1, ball2];
   currentBallIndex = 0;
   impactPoints = [];
-  startSimulation = true; // Iniciar a simulação
+  startSimulation = false; 
 }
 
 function applyEqualGravity() {
@@ -208,6 +213,7 @@ function applyEqualGravity() {
   massFactorA = 1; // Sem ajuste de distância
   massFactorB = 1; // Sem ajuste de distância
   restartSimulation();
+  startSimulation = true; // Iniciar a simulação
 }
 
 function applyHalfDistanceB() {
@@ -215,6 +221,7 @@ function applyHalfDistanceB() {
   massFactorA = 1; // Fator de massa padrão para a bola A
   massFactorB = 0.5; // Fator de massa para a bola B
   restartSimulation();
+  startSimulation = true; // Iniciar a simulação
 }
 
 function applyHalfDistanceA() {
@@ -222,6 +229,7 @@ function applyHalfDistanceA() {
   massFactorA = 0.5; // Fator de massa para a bola A
   massFactorB = 1; // Fator de massa padrão para a bola B
   restartSimulation();
+  startSimulation = true; // Iniciar a simulação
 }
 
 function applyShorterDistanceB() {
@@ -229,6 +237,7 @@ function applyShorterDistanceB() {
   massFactorA = 1; // Fator de massa padrão para a bola A
   massFactorB = 0.75; // Fator de massa menor para a bola B
   restartSimulation();
+  startSimulation = true; // Iniciar a simulação
 }
 
 function applyShorterDistanceA() {
@@ -236,4 +245,5 @@ function applyShorterDistanceA() {
   massFactorA = 0.75; // Fator de massa menor para a bola A
   massFactorB = 1; // Fator de massa padrão para a bola B
   restartSimulation();
+  startSimulation = true; // Iniciar a simulação
 }
